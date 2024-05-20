@@ -1,1 +1,4 @@
 @import "./pages/BookInventory/BookInventory.scss";
+@import "./components/bookForm/bookForm.scss";
+@import "./components/formModel/formModel.scss";
+@import "./components/dataTable/dataTable.scss";

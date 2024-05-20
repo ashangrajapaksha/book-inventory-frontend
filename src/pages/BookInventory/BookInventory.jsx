@@ -2,33 +2,21 @@ import React, { useState } from "react";
 import DataTable from "../../components/dataTable/dataTable";
 import "./BookInventory.scss";
 import Button from "@mui/material/Button";
-import Input from "../../components/input/input";
+import Input from "../../components/customTextFeild/customTextFeild";
+import FormModel from "../../components/formModel/formModel";
 
 function BookInventory() {
-  const [inputValue, setInputValue] = useState();
-  const [inputValue1, setInputValue1] = useState();
-
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleInputChange1 = (event) => {
-    setInputValue1(event.target.value);
-  };
-
   return (
     <div className="background">
-      <DataTable />
-      <Input
-        label="Enter Text:"
-        value={inputValue}
-        onChange={handleInputChange}
-      />
-      <Input
-        label="Enter Text:"
-        value={inputValue1}
-        onChange={handleInputChange1}
-      />
+      <div className="d-flex flex-column gap-5">
+        <div className="search-wrap">seatch</div>
+        <div className="d-flex justify-content-end w-100">
+          <FormModel />
+        </div>
+        <div>
+          <DataTable />
+        </div>
+      </div>
     </div>
   );
 }
