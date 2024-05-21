@@ -1,4 +1,4 @@
-@import "./pages/BookInventory/BookInventory.scss";
-@import "./components/bookForm/bookForm.scss";
-@import "./components/formModel/formModel.scss";
-@import "./components/dataTable/dataTable.scss";
+@import "./components/pages/book-inventory/BookInventory.scss";
+@import "./components/shared/bookForm/bookForm.scss";
+@import "./components/shared/dataTable/dataTable.scss";
+@import "./components/shared/formModel/formModel.scss";

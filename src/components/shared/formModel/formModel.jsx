@@ -27,7 +27,7 @@ function FormModel() {
       </div>
       <div className="modal-wrap">
         <Dialog open={open} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Book Form</DialogTitle>
+          <DialogTitle id="form-dialog-title">Add New Book</DialogTitle>
           <DialogContent>
             <BookForm onClose={handleClose} />
           </DialogContent>

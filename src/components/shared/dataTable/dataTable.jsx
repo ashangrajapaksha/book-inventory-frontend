@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import usePaginatedFetch from "../../customHooks/usePaginatedFetch";
-import useDelete from "../../customHooks/useDelete";
+import usePaginatedFetch from "../../../customHooks/usePaginatedFetch";
+import useDelete from "../../../customHooks/useDelete";
 import Pagination from "react-bootstrap/Pagination";
 import { Dropdown } from "react-bootstrap";
 
@@ -35,10 +35,24 @@ function DataTable() {
     setLimit(number);
   };
 
-  if (deleteLoading) return <div>Loading...</div>;
+  if (deleteLoading)
+    return (
+      <div className="d-flex align-items-center justify-content-center">
+        <div className="spinner-border" role="status">
+          <span className="sr-only"></span>
+        </div>
+      </div>
+    );
   if (deleteError) return <div>Error: {deleteError.message}</div>;
 
-  if (fetchLoading) return <div>Loading...</div>;
+  if (fetchLoading)
+    return (
+      <div className="d-flex align-items-center justify-content-center">
+        <div className="spinner-border" role="status">
+          <span className="sr-only"></span>
+        </div>
+      </div>
+    );
   if (fetchError) return <div>Error: {fetchError.message}</div>;
 
   const editBook = () => {};

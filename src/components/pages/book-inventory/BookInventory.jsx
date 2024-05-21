@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import DataTable from "../../components/dataTable/dataTable";
-import "./BookInventory.scss";
-import Button from "@mui/material/Button";
-import Input from "../../components/customTextFeild/customTextFeild";
-import FormModel from "../../components/formModel/formModel";
+import DataTable from "../../shared/dataTable/dataTable";
+import FormModel from "../../shared/formModel/formModel";
 
 function BookInventory() {
   return (
