@@ -4,14 +4,18 @@ import useDelete from "../../../customHooks/useDelete";
 import Pagination from "react-bootstrap/Pagination";
 import { Dropdown } from "react-bootstrap";
 
-function DataTable() {
+function DataTable({ searchValue }) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const numbers = Array.from({ length: 5 }, (_, i) => (i + 1) * 5);
 
   const url = "http://localhost:3000/bookInventry/";
 
-  // Using useFetch hook
+  useEffect(() => {
+    if (searchValue) {
+    }
+  }, [searchValue]);
+
   const {
     data,
     loading: fetchLoading,

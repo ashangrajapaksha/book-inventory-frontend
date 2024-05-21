@@ -2,3 +2,4 @@
 @import "./components/shared/bookForm/bookForm.scss";
 @import "./components/shared/dataTable/dataTable.scss";
 @import "./components/shared/formModel/formModel.scss";
+@import "./components/shared/serachBook/SearchBook.scss";
