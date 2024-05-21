@@ -23,7 +23,7 @@ function DataTable() {
 
   return (
     <div className="table-wrap">
-      <table class="table">
+      <table className="table table-hover table-striped">
         <thead>
           <tr>
             <th scope="col">Title</th>
@@ -34,8 +34,8 @@ function DataTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map((book) => (
-            <tr>
+          {data.map((book, index) => (
+            <tr key={index}>
               <th scope="row">{book.title}</th>
               <td>{book.author}</td>
               <td>{book.ISBN}</td>

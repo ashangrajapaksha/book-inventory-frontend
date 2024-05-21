@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import CustomTextField from "../customTextFeild/customTextFeild";
+import useCreate from "../../customHooks/useCreate";
 
 function BookForm({ onClose }) {
   const [formData, setFormData] = useState({
     title: "",
     author: "",
-    isbn: "",
+    ISBN: "",
     price: "",
   });
+
+  const { saveData, loading, error, response } = useCreate(
+    "http://localhost:3000/bookInventry/addNewBook"
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,9 +26,13 @@ function BookForm({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    saveData(formData);
     onClose();
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <div className="d-flex flex-column gap-4 mt-4 book-form-wrap">
       <CustomTextField
@@ -46,11 +55,11 @@ function BookForm({ onClose }) {
 
       <CustomTextField
         label="ISBN"
-        name="isbn"
-        value={formData.isbn}
+        name="ISBN"
+        value={formData.ISBN}
         onChange={handleChange}
-        error={!formData.isbn}
-        helperText={!formData.isbn ? "ISBN is required" : ""}
+        error={!formData.ISBN}
+        helperText={!formData.ISBN ? "ISBN is required" : ""}
       />
 
       <CustomTextField
@@ -63,7 +72,12 @@ function BookForm({ onClose }) {
         type="number"
       />
 
-      <Button type="submit" variant="contained" color="primary">
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        onClick={handleSubmit}
+      >
         Submit
       </Button>
     </div>

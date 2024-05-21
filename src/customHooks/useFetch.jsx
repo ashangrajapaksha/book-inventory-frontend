@@ -15,7 +15,6 @@ const usePaginatedFetch = (url, page, limit) => {
         const response = await axios.get(url, {
           params: { page, limit },
         });
-        console.log(response.data);
         setData(response.data.books);
         setTotalPages(response.data.totalPages);
         setError(null);
