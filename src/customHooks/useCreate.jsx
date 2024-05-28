@@ -8,11 +8,16 @@ const useCreate = (url) => {
   const [response, setResponse] = useState(null);
 
   const saveData = useCallback(
-    async (formData) => {
+    async (formData, isEdit, id = null) => {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.post(url, formData);
+        let response;
+        if (!isEdit) {
+          response = await axios.post(url, formData);
+        } else {
+          response = await axios.patch(`${url}/${id}`, formData);
+        }
         setResponse(response.data);
       } catch (error) {
         setError(error);

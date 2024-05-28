@@ -3,11 +3,14 @@ import usePaginatedFetch from "../../../customHooks/usePaginatedFetch";
 import useDelete from "../../../customHooks/useDelete";
 import Pagination from "react-bootstrap/Pagination";
 import { Dropdown } from "react-bootstrap";
+import FormModel from "../formModel/formModel";
 
 function DataTable({ searchValue }) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const numbers = Array.from({ length: 5 }, (_, i) => (i + 1) * 5);
+  const [open, setOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
 
   const url = "http://localhost:3000/bookInventry/";
 
@@ -59,7 +62,22 @@ function DataTable({ searchValue }) {
     );
   if (fetchError) return <div>Error: {fetchError.message}</div>;
 
-  const editBook = () => {};
+  const editBook = (book) => {
+    setSelectedBook(book);
+    setOpen(true);
+  };
+
+  const handleClose = (updatedBook) => {
+    setOpen(false);
+    if (updatedBook) {
+      // Update the data with the edited book
+      const updatedData = data.map((item) =>
+        item._id === updatedBook._id ? updatedBook : item
+      );
+      refetchData(); // Refetch data to update the table
+    }
+    setSelectedBook(null);
+  };
 
   const handleDelete = (id) => {
     deleteBook(id, () => {
@@ -93,13 +111,13 @@ function DataTable({ searchValue }) {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-pencil-square"
+                    className="bi bi-pencil-square"
                     viewBox="0 0 16 16"
-                    onClick={editBook}
+                    onClick={() => editBook(book)}
                   >
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
                     />
                   </svg>
@@ -109,7 +127,7 @@ function DataTable({ searchValue }) {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-archive-fill"
+                    className="bi bi-archive-fill"
                     viewBox="0 0 16 16"
                     onClick={() => handleDelete(book._id)}
                   >
@@ -147,6 +165,7 @@ function DataTable({ searchValue }) {
           ))}
         </Pagination>
       </div>
+      <FormModel open={open} handleClose={handleClose} book={selectedBook} />
     </div>
   );
 }

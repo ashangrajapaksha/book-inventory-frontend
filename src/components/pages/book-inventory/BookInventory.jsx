@@ -2,11 +2,18 @@ import React, { useState } from "react";
 import DataTable from "../../shared/dataTable/dataTable";
 import FormModel from "../../shared/formModel/formModel";
 import SearchBook from "../../shared/serachBook/SearchBook";
+import Button from "@mui/material/Button";
 
 function BookInventory() {
   const [searchValue, setSearchValue] = useState("");
+  const [open, setOpen] = useState(false);
+
   const fetchSearchResults = async (query) => {
     setSearchValue(query);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -16,6 +23,15 @@ function BookInventory() {
           <div className="search-wrap">
             <SearchBook onSearch={fetchSearchResults} />
           </div>
+          <div className="d-flex justify-content-end book-add-btn">
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => setOpen(true)}
+            >
+              Add Book
+            </Button>
+          </div>{" "}
           <div className="d-flex justify-content-end w-100">
             <FormModel />
           </div>
@@ -24,6 +40,7 @@ function BookInventory() {
           <DataTable searchValue={searchValue} />
         </div>
       </div>
+      <FormModel open={open} handleClose={handleClose} />
     </div>
   );
 }

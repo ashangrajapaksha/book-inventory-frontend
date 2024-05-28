@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CustomTextField from "../../common/forms/customTextFeild";
 import useCreate from "../../../customHooks/useCreate";
@@ -6,7 +6,7 @@ import { CustomForm } from "../../common/forms/customForm";
 
 import { isPrice, isRequired } from "../../../config/validation.config";
 
-function BookForm({ onClose }) {
+function BookForm({ onClose, bookData }) {
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -21,8 +21,20 @@ function BookForm({ onClose }) {
     price: "",
   });
 
+  const [isEdit, setIsEdit] = useState(false);
+
+  useEffect(() => {
+    if (bookData) {
+      setFormData(bookData);
+      setIsEdit(true);
+      console.log(errors);
+    }
+  }, [bookData]);
+
   const { saveData, loading, error, response } = useCreate(
-    "http://localhost:3000/bookInventry/addNewBook"
+    isEdit
+      ? "http://localhost:3000/bookInventry"
+      : "http://localhost:3000/bookInventry/addNewBook"
   );
 
   const handleChange = (name, value) => {
@@ -35,16 +47,16 @@ function BookForm({ onClose }) {
   };
 
   const setErrorCustom = (name, value) => {
-    setErrors((pre) => {
-      return {
-        ...pre,
-        [name]: value,
-      };
-    });
+    setErrors((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const onSubmit = () => {
-    saveData(formData);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const id = isEdit ? bookData._id : null;
+    saveData(formData, isEdit, id);
     onClose();
   };
 
